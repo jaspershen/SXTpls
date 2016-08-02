@@ -51,7 +51,7 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
   #######
   q<-grep("QC",rownames(int))
   name<-rownames(int)
-  browser()
+  # browser()
   Y<-NULL
   label<-list()
   for (i in 1:length( info )) {
@@ -65,7 +65,7 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
   # int.Y<-SXTscale(Y,method=scalemethod)
   int.Y <- Y
   if (ncol(int)<=100) {ncompa<-ncol(int)}
-  else {ncompa<-100}
+  else {ncompa<-nrow(int)}
 
   if (plsmethod=="plsr") {
     pls1<-plsr(int.Y~int.scale,scale=FALSE,validation="CV",ncomp=ncompa,method = "oscorespls")
