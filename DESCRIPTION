@@ -1,0 +1,10 @@
+Package: SXTpls
+Type: Package
+Title: Give the PLS score plot and other values.
+Version: 1.0
+Date: 2015-11-01
+Author: Jasper Shen
+Maintainer: Jasper Shen <shenxt1990@163.com>
+Description: PLS score plot and VIP, Q2cum. R2X and R2Y.
+License: NO
+LazyData: TRUE
