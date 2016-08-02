@@ -64,8 +64,7 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
   int.scale <- SXTscale(int,method=scalemethod)
   # int.Y<-SXTscale(Y,method=scalemethod)
   int.Y <- Y
-  if (ncol(int)<=100) {ncompa<-ncol(int)}
-  else {ncompa<-nrow(int)}
+  ncompa <- nrow(int) - 1
 
   if (plsmethod=="plsr") {
     pls1<-plsr(int.Y~int.scale,scale=FALSE,validation="CV",ncomp=ncompa,method = "oscorespls")
