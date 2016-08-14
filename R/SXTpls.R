@@ -157,8 +157,8 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     ##################construct final pls model###################
     cat(paste("Construct PLS model with all peaks using",number,"comps ...","\n"))
     pls2 <- plsreg1(int.scale,Y,comps = number)
-    save(pls2,file="pls2")
-    pls.temp <- plsreg1(int.scale,int.dummy, comps = number)
+    save(pls2,file = "pls2")
+    pls.temp <- plsreg2(int.scale,int.dummy, comps = number)
     vip <- pls.temp$VIP
     Q2cum <- pls2$Q2[,5]
     Q2cum <- pls2$Q2[,3]
