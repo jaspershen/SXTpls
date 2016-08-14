@@ -76,8 +76,9 @@ PLSpermutation <- function(data = NULL, info = NULL, repeats = 200, ncomp = 3,
     cat(i); cat(" ")
   }
 
-  save(q2, file = "q2")
-  save(r2, file = "r2")
+  save(q2, file = "q2_200")
+  save(r2, file = "r2_200")
+  save(cor, file = "cor")
 
   ##draw perumtation test
   pdf("Permutation test.pdf")
