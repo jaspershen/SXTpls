@@ -6,7 +6,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
                   shape=c(17,19,15,18,2,8,11),cexa=1)
   #parameter setting
 {
-  # browser()
+   browser()
   options(warn=-1)
   if (is.null(sample))  stop("sample is NULL")
   if (!is.null(qc))
@@ -52,7 +52,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   q<-grep("QC",rownames(int))
   name<-rownames(int)
   # browser()
-  Y<-NULL
+  Y <- NULL
   label<-list()
   for (i in 1:length( info )) {
     label[[i]]<-match(as.character(info[[i]]),name)
@@ -104,15 +104,15 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     number<-as.numeric(number)
 
     ##################construct final pls model###################
-    pls2<-plsr(int.Y~int.scale,scale=FALSE,validation="CV",ncomp=number,method = "oscorespls")
-    save(pls2,file="pls2")
-    vip<-SXTvip(pls2)
-    save(vip,file="vip")
+    pls2 <- plsr(int.Y~int.scale, scale = FALSE,validation = "CV",ncomp = number,method = "oscorespls")
+    save(pls2, file = "pls2")
+    vip <- SXTvip(pls2)
+    save(vip,file = "vip")
 
     scores <- scores(pls2)
     x <- scores[,1]
     y <- scores[,2]
-    if (number > 2) {z <- scores[,3];zmin <- 1.2*min(z);zmax<-1.2*max(z)}
+    if (number > 2) {z <- scores[,3];zmin <- 1.2*min(z);zmax <- 1.2*max(z)}
 
     xmin <- 1.2 * min(x)
     xmax <- 1.2 * max(x)
