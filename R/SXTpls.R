@@ -1,9 +1,9 @@
-SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
-                 #used data
-                 scalemethod="auto", plsmethod=c("plsreg","plsr"),
-                 width=7,height=7,QC=FALSE,text=FALSE,ellipse=FALSE,
-                 color=c("palegreen","firebrick1","royalblue","yellow","black","cyan","gray48"),
-                 shape=c(17,19,15,18,2,8,11),cexa=1)
+SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
+                  #used data
+                  scalemethod="auto", plsmethod=c("plsreg","plsr"),
+                  width=7,height=7,QC=FALSE,text=FALSE,ellipse=FALSE,
+                  color=c("palegreen","firebrick1","royalblue","yellow","black","cyan","gray48"),
+                  shape=c(17,19,15,18,2,8,11),cexa=1)
   #parameter setting
 {
   # browser()
@@ -19,7 +19,7 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
   need.packages1<-c("plspm","plsdepot","scatterplot3d","pls","lars",
                     "ROCR","ggplot2","pROC","ellipse")
 
-  packages<-library()[[2]][,1]
+  packages <- library()[[2]][,1]
   for (i in need.packages1) {
     if (!any(packages==i)) {install.packages(i)}
   }
@@ -34,8 +34,8 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
   require(pls); require(lars); require(ROCR); require(ggplot2)
   require(pROC); require(ellipse); require(SXTscale); require(SXTvip)
 
-  int<-sample
-  index<-NULL
+  int <- sample
+  index <- NULL
   for (i in 1:length(info)) {
     index1<-as.character(info[[i]])
     index<-c(index,index1)
@@ -109,27 +109,26 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
     vip<-SXTvip(pls2)
     save(vip,file="vip")
 
-    scores<-scores(pls2)
-    x<-scores[,1]
-    y<-scores[,2]
-    if (number>2) {z<-scores[,3];zmin<-1.2*min(z);zmax<-1.2*max(z)}
+    scores <- scores(pls2)
+    x <- scores[,1]
+    y <- scores[,2]
+    if (number > 2) {z <- scores[,3];zmin <- 1.2*min(z);zmax<-1.2*max(z)}
 
-    xmin<-1.2*min(x)
-    xmax<-1.2*max(x)
-    ymin<-1.2*min(y)
-    ymax<-1.2*max(y)
+    xmin <- 1.2 * min(x)
+    xmax <- 1.2 * max(x)
+    ymin <- 1.2 * min(y)
+    ymax <- 1.2 * max(y)
   }
 
   else {
     require(SXTdummy)
-    dummy<-SXTdummy(Y)
+    dummy <- SXTdummy(Y)
     # int.dummy<-SXTscale(dummy,method=scalemethod)
     int.dummy <- dummy
-    pls1<-plsreg2(int.scale,int.dummy,comps=ncompa)
-    save(pls1,file="pls1")
+    pls1 <- plsreg1(int.scale,y, comps = ncompa)
+    save(pls1,file = "pls1")
     #########select the number of compents#################
-    Q2cum<-pls1$Q2cum
-    Q2cum<-Q2cum[,ncol(Q2cum)]
+    Q2cum<-pls1$Q2[,5]
 
     yesnot<-"y"
     while (yesnot=="y"|yesnot=="") {
@@ -138,10 +137,10 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
         comps.number<-readline("How many comps do you want to see? ")}
       comps.number<-as.numeric(comps.number)
       barplot(Q2cum[1:comps.number],xlab="ncomp",ylab="Q2cum",cex.lab=1.3,cex.axis=1.3)
-      a<-barplot(Q2cum[1:comps.number],xlab="ncomp",ylab="Q2cum",cex.lab=1.3,cex.axis=1.3)
+      a <- barplot(Q2cum[1:comps.number],xlab="ncomp",ylab="Q2cum",cex.lab=1.3,cex.axis=1.3)
       abline(h=0)
       points(a,Q2cum[1:comps.number],type="b",col="red",pch=20,cex=2)
-      yesnot<-readline("Do you want to see the next plot? (y/n)")
+      yesnot <- readline("Do you want to see the next plot? (y/n)")
     }
     pdf("Q2cum plot.pdf",width=7,height=7)
     barplot(Q2cum[1:comps.number],xlab="ncomp",ylab="Q2cum",cex.lab=1.3,cex.axis=1.3)
@@ -157,33 +156,33 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
 
     ##################construct final pls model###################
     cat(paste("Construct PLS model with all peaks using",number,"comps ...","\n"))
-    pls2<-plsreg2(int.scale,int.dummy,comps=number)
+    pls2<-plsreg1(int.scale,Y,comps=number)
     save(pls2,file="pls2")
-    vip<-pls2$VIP
-    Q2cum<-pls2$Q2cum
-    Q2<-pls2$Q2
-    expvar<-pls2$expvar
+    pls.temp <- plsreg1(int.scale,int.dummy, comps = number)
+    vip <- pls.temp$VIP
+    Q2cum <- pls2$Q2[,5]
+    Q2cum <- pls2$Q2[,3]
+    R2cum <- cumsum(pls2$R2)
 
-    write.csv(cbind(expvar,Q2cum),"R2Q2.csv",row.names = F)
+    write.csv(cbind(R2,Q2cum),"R2Q2.csv",row.names = F)
 
     ##draw barplot of Q2cum, R2Xcum and R2Ycum
-    Q2R2<-cbind( expvar[,c(2,4)], Q2cum[,3])
-    colnames(Q2R2)[3 ]<- "Q2cum"
+    Q2R2 <- cbind( R2, Q2cum)
+    colnames(Q2R2) <- c( "R2cum","Q2cum")
     pdf("Q2R2cum.pdf",width=8,height = 6)
-    barplot( t(Q2R2), beside = T, col = c( "palegreen", " firebrick1", "royalblue"),
+    barplot( t(Q2R2), beside = T, col = c( "palegreen", "royalblue"),
              cex.lab=1.3, cex.axis=1.3, cex.names = 1.3)
-    abline( h=0)
-    legend( "topleft", legend = c( "R2Xcum", "R2Ycum", "Q2cum"),pch=15,
-            col = c( "palegreen", " firebrick1", "royalblue"), cex = 1.3, pt.cex = 1.3,bty = "n")
+    abline( h = 0)
+    legend( "topleft", legend = c("R2Ycum", "Q2cum"),pch=15,
+            col = c( "palegreen", "royalblue"), cex = 1.3, pt.cex = 1.3, bty = "n")
     dev.off()
 
     save(vip,file="vip")
-    save(Q2,file="Q2")
     save(Q2cum,file="Q2cum")
-    save(expvar,file="expvar")
+    save(R2,file="R2")
 
-    x<-pls2$x.scores[,1]
-    y<-pls2$x.scores[,2]
+    x <- pls2$x.scores[,1]
+    y <- pls2$x.scores[,2]
     if (number>2) {z<-pls2$x.scores[,3];zmin<-1.2*min(z);zmax<-1.2*max(z)}
 
     xmin<-1.2*min(x)
@@ -222,7 +221,7 @@ SXTpls<-function(sample=NULL,qc=NULL,info=NULL,
   if (ellipse) {lines(ellipse(0,scale=c(sd(x),sd(y)),centre=c(mean(x),mean(y))),lty=2)}
 
   if (QC) {legend("topleft",c( names(info),"QC"),
-  pch=pchalist[1:(length(info)+1)],col=colourlist[1:(length(info)+1)],bty="n",cex=1.3)
+                  pch=pchalist[1:(length(info)+1)],col=colourlist[1:(length(info)+1)],bty="n",cex=1.3)
   }else{legend("topleft",names(info),
                pch=pchalist[1: length(info)],col=colourlist[1:length(info)],bty="n",cex=1.3)}
   dev.off()
