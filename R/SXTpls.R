@@ -6,7 +6,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
                   shape=c(17,19,15,18,2,8,11),cexa=1)
   #parameter setting
 {
-   browser()
+   # browser()
   options(warn=-1)
   if (is.null(sample))  stop("sample is NULL")
   if (!is.null(qc))
@@ -125,7 +125,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     dummy <- SXTdummy(Y)
     # int.dummy<-SXTscale(dummy,method=scalemethod)
     int.dummy <- dummy
-    pls1 <- plsreg1(int.scale,y, comps = ncompa)
+    pls1 <- plsreg1(int.scale,Y, comps = ncompa)
     save(pls1,file = "pls1")
     #########select the number of compents#################
     Q2cum<-pls1$Q2[,5]
@@ -156,7 +156,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
 
     ##################construct final pls model###################
     cat(paste("Construct PLS model with all peaks using",number,"comps ...","\n"))
-    pls2<-plsreg1(int.scale,Y,comps=number)
+    pls2 <- plsreg1(int.scale,Y,comps = number)
     save(pls2,file="pls2")
     pls.temp <- plsreg1(int.scale,int.dummy, comps = number)
     vip <- pls.temp$VIP
