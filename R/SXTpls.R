@@ -121,6 +121,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   }
 
   else {
+    browser()
     require(SXTdummy)
     dummy <- SXTdummy(Y)
     # int.dummy<-SXTscale(dummy,method=scalemethod)
