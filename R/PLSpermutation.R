@@ -1,6 +1,6 @@
 PLSpermutation <- function(data = NULL, info = NULL, repeats = 200, ncomp = 3,
                            scalemethod = "auto") {
-  browser()
+  # browser()
   options(warn=-1)
   if (is.null(data))  stop("sample is NULL")
   if (is.null(info)) stop("info must not be NULL")
@@ -39,7 +39,7 @@ PLSpermutation <- function(data = NULL, info = NULL, repeats = 200, ncomp = 3,
 
   #######
   name <- rownames(int)
-  # browser()
+  browser()
   Y <- NULL
   label <- list()
   for (i in 1:length( info )) {
