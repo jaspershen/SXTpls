@@ -168,28 +168,28 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     write.csv(cbind(R2,Q2cum),"R2Q2.csv",row.names = F)
 
     ##draw barplot of Q2cum, R2Xcum and R2Ycum
-    Q2R2 <- cbind( R2, Q2cum)
+    Q2R2 <- cbind( R2cum, Q2cum)
     colnames(Q2R2) <- c( "R2cum","Q2cum")
-    pdf("Q2R2cum.pdf",width=8,height = 6)
+    pdf("Q2R2cum.pdf",width = 8,height = 6)
     barplot( t(Q2R2), beside = T, col = c( "palegreen", "royalblue"),
-             cex.lab=1.3, cex.axis=1.3, cex.names = 1.3)
+             cex.lab = 1.3, cex.axis=1.3, cex.names = 1.3)
     abline( h = 0)
     legend( "topleft", legend = c("R2Ycum", "Q2cum"),pch=15,
             col = c( "palegreen", "royalblue"), cex = 1.3, pt.cex = 1.3, bty = "n")
     dev.off()
 
     save(vip,file="vip")
-    save(Q2cum,file="Q2cum")
-    save(R2,file="R2")
+    save(Q2cum,file = "Q2cum")
+    save(R2cum,file = "R2cum")
 
     x <- pls2$x.scores[,1]
     y <- pls2$x.scores[,2]
     if (number>2) {z<-pls2$x.scores[,3];zmin<-1.2*min(z);zmax<-1.2*max(z)}
 
-    xmin<-1.2*min(x)
-    xmax<-1.2*max(x)
-    ymin<-1.2*min(y)
-    ymax<-1.2*max(y)
+    xmin <- 1.2 * min(x)
+    xmax <- 1.2 * max(x)
+    ymin <- 1.2 * min(y)
+    ymax <- 1.2 * max(y)
   }
 
   legend<-NULL
