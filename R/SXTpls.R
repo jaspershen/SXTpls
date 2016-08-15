@@ -42,10 +42,11 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   }
   if (length(which(index==""))!=0)  {index<-index[-which(index=="")]}
 
-  index<-index[!is.na(index)]
-  index<-match(index,rownames(int))
-  index<-index[!is.na(index)]
-  int<-int[index,]
+
+  index <- index[!is.na(index)]
+  index <- match(index, rownames(int))
+  index <- index[!is.na(index)]
+  int <- int[index, ]
 
   ifelse(QC,int<-rbind(int,qc),int<-int)
   #######
@@ -67,7 +68,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   ncompa <- nrow(int) - 1
 
   if (plsmethod=="plsr") {
-    pls1<-plsr(int.Y~int.scale,scale=FALSE,validation="CV",ncomp=ncompa,method = "oscorespls")
+    pls1<-plsr(int.Y~int.scale,scale = FALSE,validation = "CV",ncomp = ncompa,method = "oscorespls")
     save(pls1,file="pls1")
     #########select the number of compents#################
 
@@ -126,10 +127,11 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     dummy <- SXTdummy(Y)
     # int.dummy<-SXTscale(dummy,method=scalemethod)
     int.dummy <- dummy
+    ncompa = nrow(int.scale) - 1
     pls1 <- plsreg1(int.scale,Y, comps = ncompa)
     save(pls1,file = "pls1")
     #########select the number of compents#################
-    Q2cum<-pls1$Q2[,5]
+    Q2cum< - pls1$Q2[,5]
 
     yesnot<-"y"
     while (yesnot=="y"|yesnot=="") {
