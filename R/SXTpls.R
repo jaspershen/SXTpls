@@ -132,8 +132,8 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     pls1 <- plsreg1(int.scale,Y, comps = ncompa)
     save(pls1,file = "pls1")
     #########select the number of compents#################
-    Q2cum< - pls1$Q2[,5]
-
+    Q2cum <- pls1$Q2[,5]
+    Q2cum[is.nan(Q2cum)] <- 1
     yesnot<-"y"
     while (yesnot=="y"|yesnot=="") {
       comps.number<-readline("How many comps do you want to see? ")
