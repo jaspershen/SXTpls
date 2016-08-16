@@ -222,7 +222,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   abline(v=0,lty=2)
   abline(h=0,lty=2)
   if (text) {text(x,y,rownames(int),pos=4)}
-  if (ellipse) {lines(ellipse(0,scale=c(sd(x),sd(y)),centre=c(mean(x),mean(y))),lty=2)}
+  if (ellipse) {lines(ellipse::ellipse(0,scale=c(sd(x),sd(y)),centre=c(mean(x),mean(y))),lty=2)}
 
   if (QC) {legend("topleft",c( names(info),"QC"),
                   pch=pchalist[1:(length(info)+1)],col=colourlist[1:(length(info)+1)],bty="n",cex=1.3)
