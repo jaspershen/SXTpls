@@ -39,7 +39,7 @@ PLSpermutation <- function(data = NULL, info = NULL, repeats = 200, ncomp = 3,
 
   #######
   name <- rownames(int)
-  browser()
+  # browser()
   Y <- NULL
   label <- list()
   for (i in 1:length( info )) {

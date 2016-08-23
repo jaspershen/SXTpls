@@ -122,13 +122,13 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   }
 
   else {
-    browser()
+    # browser()
     require(SXTdummy)
     dummy <- SXTdummy(Y)
     # int.dummy<-SXTscale(dummy,method=scalemethod)
     int.dummy <- dummy
     # ncompa = nrow(int.scale) - 1
-    ncompa <- 50
+    ncompa <- min(nrow(int), ncol(int))
     pls1 <- plsreg1(int.scale,Y, comps = ncompa)
     save(pls1,file = "pls1")
     #########select the number of compents#################
