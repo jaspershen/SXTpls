@@ -52,7 +52,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   #######
   q<-grep("QC",rownames(int))
   name<-rownames(int)
-  # browser()
+  browser()
   Y <- NULL
   label<-list()
   for (i in 1:length( info )) {
