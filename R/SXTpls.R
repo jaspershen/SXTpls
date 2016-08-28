@@ -165,10 +165,9 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     pls.temp <- plsreg2(int.scale,int.dummy, comps = number)
     vip <- pls.temp$VIP
     Q2cum <- pls2$Q2[,5]
-    Q2cum <- pls2$Q2[,3]
     R2cum <- cumsum(pls2$R2)
 
-    write.csv(cbind(R2,Q2cum),"R2Q2.csv",row.names = F)
+    write.csv(cbind(R2cum,Q2cum),"R2Q2.csv",row.names = F)
 
     ##draw barplot of Q2cum, R2Xcum and R2Ycum
     Q2R2 <- cbind( R2cum, Q2cum)
