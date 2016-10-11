@@ -52,7 +52,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   #######
   q<-grep("QC",rownames(int))
   name<-rownames(int)
-  browser()
+  # browser()
   Y <- NULL
   label<-list()
   for (i in 1:length( info )) {
@@ -92,6 +92,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     }
 
     pdf("MSEP plot.pdf")
+    par(mar=c(5,5,4,2))
     plot(x=c(1:comps.number),y=msep[1,2:(comps.number+1)],type="b",col="firebrick1",pch=20,
          xlab="ncomp",ylab="MSEP",cex.lab=1.3,cex.axis=1.3)
     points(x=c(1:comps.number),y=msep[2,2:(comps.number+1)],type="b",pch=2)
@@ -147,6 +148,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
       yesnot <- readline("Do you want to see the next plot? (y/n)")
     }
     pdf("Q2cum plot.pdf",width=7,height=7)
+    par(mar=c(5,5,4,2))
     barplot(Q2cum[1:comps.number],xlab="ncomp",ylab="Q2cum",cex.lab=1.3,cex.axis=1.3)
     a<-barplot(Q2cum[1:comps.number],xlab="ncomp",ylab="Q2cum",cex.lab=1.3,cex.axis=1.3)
     abline(h=0)
@@ -173,6 +175,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
     Q2R2 <- cbind( R2cum, Q2cum)
     colnames(Q2R2) <- c( "R2cum","Q2cum")
     pdf("Q2R2cum.pdf",width = 8,height = 6)
+    par(mar=c(5,5,4,2))
     barplot( t(Q2R2), beside = T, col = c( "palegreen", "royalblue"),
              cex.lab = 1.3, cex.axis=1.3, cex.names = 1.3)
     abline( h = 0)
@@ -216,6 +219,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
 
   #PLS 2D
   pdf("plsplot 2d t1 vs t2.pdf",width=width,height=height)
+  par(mar=c(5,5,4,2))
   plot(x,y,xlim=c(xmin,xmax),ylim=c(ymin,ymax),col=colour,pch=pcha,xlab="t[1]",ylab="t[2]",
        cex=cexa,cex.axis=1.3,cex.lab=1.3)
   abline(v=0,lty=2)
@@ -232,6 +236,7 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   #PLS 3D
   if (number>2) {
     pdf("plsplot 3d.pdf",width=width,height=height)
+    par(mar=c(5,5,4,2))
     scatterplot3d(x,y,z,color=colour,xlab="t[1]",ylab="t[2]",zlab="t[3]",angle=50,
                   pch=pcha,box=FALSE,cex.symbol=cexa,cex.lab=1.3,cex.axis=1.3,
                   xlim=c(xmin,xmax),ylim=c(ymin,ymax),zlim=c(zmin,zmax))
