@@ -84,7 +84,8 @@ PLSpermutation <- function(data = NULL, info = NULL, repeats = 200, ncomp = 3,
   pdf("Permutation test.pdf")
   par(xpd = F)
   par(mar=c(5,5,4,2))
-  plot(x = 0, y = 0, xlim = c(0,1), ylim = c(min(c(q2,r2)),1), col = "white", xlab = "Cor", ylab = "Values",
+  plot(x = 0, y = 0, xlim = c(0,1), ylim = c(min(c(q2,r2)),1.3*max(c(q2,r2))), col = "white", xlab = "Correlation",
+       ylab = "Values (Q2, R2)",
        cex.axis = 1.3, cex.lab = 1.3)
   abline( h = 0, lty = 2)
 
