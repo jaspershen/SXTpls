@@ -1,9 +1,20 @@
-SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
+SXTpls <- function(sample=NULL,
+                   qc=NULL,
+                   info=NULL,
                   #used data
-                  scalemethod="auto", plsmethod=c("plsreg","plsr"),
-                  width=7,height=7,QC=FALSE,text=FALSE,ellipse=FALSE,
+                  scalemethod="auto",
+                  plsmethod=c("plsreg","plsr"),
+                  width=7,
+                  height=7,
+                  QC=FALSE,
+                  text=FALSE,
+                  ellipse=FALSE,
                   color=c("palegreen","firebrick1","royalblue","yellow","black","cyan","gray48"),
-                  shape=c(17,19,15,18,2,8,11),cexa=1)
+                  shape=c(17,19,15,18,2,8,11),
+                  cexa=1,
+                  cexlab = 1.5,
+                  cexaxis = 1.8,
+                  cexlegend = 1.8)
   #parameter setting
 {
    # browser()
@@ -220,17 +231,34 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
   #PLS 2D
   pdf("plsplot 2d t1 vs t2.pdf",width=width,height=height)
   par(mar=c(5,5,4,2))
-  plot(x,y,xlim=c(xmin,xmax),ylim=c(ymin,ymax),col=colour,pch=pcha,xlab="t[1]",ylab="t[2]",
-       cex=cexa,cex.axis=1.3,cex.lab=1.3)
-  abline(v=0,lty=2)
-  abline(h=0,lty=2)
+  plot(x,y,
+       xlim = c(xmin,xmax),
+       ylim = c(ymin,ymax),
+       col = colour,
+       pch = pcha,
+       xlab = "t[1]",
+       ylab = "t[2]",
+       cex = cexa,
+       cex.axis = cexaxis,
+       cex.lab = cexlab)
+  abline(v = 0, lty = 2)
+  abline(h = 0, lty = 2)
   if (text) {text(x,y,rownames(int),pos=4)}
   if (ellipse) {lines(ellipse::ellipse(0,scale=c(sd(x),sd(y)),centre=c(mean(x),mean(y))),lty=2)}
 
-  if (QC) {legend("topleft",c( names(info),"QC"),
-                  pch=pchalist[1:(length(info)+1)],col=colourlist[1:(length(info)+1)],bty="n",cex=1.3)
+  if (QC) {legend("topleft",
+                  c(names(info),"QC"),
+                  pch = pchalist[1:(length(info)+1)],
+                  col = colourlist[1:(length(info)+1)],
+                  bty="n",
+                  cex=cexlegend,
+                  pt.cex = cexa)
   }else{legend("topleft",names(info),
-               pch=pchalist[1: length(info)],col=colourlist[1:length(info)],bty="n",cex=1.3)}
+               pch=pchalist[1: length(info)],
+               col=colourlist[1:length(info)],
+               bty="n",
+               cex=cexlegend,
+               pt.cex = cexa)}
   dev.off()
 
   #PLS 3D
@@ -242,10 +270,19 @@ SXTpls <- function(sample=NULL,qc=NULL,info=NULL,
                   xlim=c(xmin,xmax),ylim=c(ymin,ymax),zlim=c(zmin,zmax))
     if (QC) {
       legend("topleft",c( names(info),"QC"),
-             pch=pchalist[1:(length(info)+1)],col=colourlist[1:(length(info)+1)],bty="n",cex=1.3)
+             pch = pchalist[1:(length(info)+1)],
+             col = colourlist[1:(length(info)+1)],
+             bty="n",
+             cex=cexlegend,
+             pt.cex = cexa)
     }else{
-      legend("topleft",names(info),
-             pch=pchalist[1:length(info)],col=colourlist[1:length(info)],bty="n",cex=1.3)
+      legend("topleft",
+             names(info),
+             pch = pchalist[1:length(info)],
+             col = colourlist[1:length(info)],
+             bty="n",
+             cex=cexlegend,
+             pt.cex = cexa)
     }
     dev.off()
   }
