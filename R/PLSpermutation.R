@@ -85,7 +85,7 @@ PLSpermutation <- function(data = NULL, info = NULL, repeats = 200, ncomp = 3,
   par(xpd = F)
   par(mar=c(5,5,4,2))
   plot(x = 0, y = 0, xlim = c(0,1),
-       ylim = c(min(c(q2,r2)),1.3*max(c(q2,r2))),
+       ylim = c(min(c(q2,r2,Q2,R2)),1.2*max(c(q2,r2,Q2,R2))),
        col = "white",
        xlab = "Correlation",
        ylab = "Values (Q2, R2)",
